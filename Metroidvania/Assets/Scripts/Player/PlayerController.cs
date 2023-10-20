@@ -6,13 +6,25 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] Transform groundPoint;
-    public Rigidbody2D rb2d;
+    
 
-    private bool isGrounded;
+    public bool isGrounded;
     [SerializeField] LayerMask groundCheckPoint;
 
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
+
+
+    Rigidbody2D rb2d;
+
+    public static PlayerController instance;
+
+    void Awake()
+    {
+        instance = this;
+
+        rb2d = GetComponent<Rigidbody2D>();
+    }
 
     void Start()
     {
