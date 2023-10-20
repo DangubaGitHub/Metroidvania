@@ -41,6 +41,16 @@ public class PlayerController : MonoBehaviour
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
         }
+
+        if(rb2d.velocity.x < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+        else if(rb2d.velocity.x > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     

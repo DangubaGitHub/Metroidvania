@@ -8,6 +8,7 @@ public class PlayerAnimations : MonoBehaviour
     const string P_IDLE = "Player_Idle";
     const string P_Jump = "Player_Jump";
     const string P_Run = "Player_Run";
+    const string P_Fall = "Player_Fall";
 
     string currentState;
 
@@ -34,7 +35,7 @@ public class PlayerAnimations : MonoBehaviour
     {
         if(PlayerController.instance.isGrounded)
         {
-            if(rb2d.velocity.x < 0.1f && rb2d.velocity.x > -0.1f)
+            if(rb2d.velocity.x == 0)
             {
                 ChangeAnimationState(P_IDLE);
             }
@@ -45,9 +46,14 @@ public class PlayerAnimations : MonoBehaviour
             }
         }
         
-        if (rb2d.velocity.y > 0)
+        if (rb2d.velocity.y > 0 && !PlayerController.instance.isGrounded)
         {
             ChangeAnimationState(P_Jump);
+        }
+
+        else if(rb2d.velocity.y < 0 && !PlayerController.instance.isGrounded)
+        {
+            ChangeAnimationState(P_Fall);
         }
     }
 
