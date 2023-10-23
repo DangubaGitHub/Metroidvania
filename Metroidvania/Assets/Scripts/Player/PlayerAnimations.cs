@@ -12,6 +12,10 @@ public class PlayerAnimations : MonoBehaviour
 
     string currentState;
 
+    public bool touchesWall;
+    [SerializeField] LayerMask wallCheck;
+    [SerializeField] Transform wallPoint;
+
     Animator anim;
     Rigidbody2D rb2d;
 
@@ -30,12 +34,11 @@ public class PlayerAnimations : MonoBehaviour
         
     }
 
-
     void Update()
     {
         if(PlayerController.instance.isGrounded)
         {
-            if(rb2d.velocity.x == 0)
+            if(rb2d.velocity.x < 0.1f && rb2d.velocity.x > -0.1f || touchesWall == true)
             {
                 ChangeAnimationState(P_IDLE);
             }
@@ -55,8 +58,11 @@ public class PlayerAnimations : MonoBehaviour
         {
             ChangeAnimationState(P_Fall);
         }
-    }
 
+        touchesWall = Physics2D.OverlapCircle(wallPoint.position, .2f, wallCheck);
+
+        
+    }
 
     public void ChangeAnimationState(string newState)
     {
