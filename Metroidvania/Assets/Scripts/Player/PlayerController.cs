@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpForce;
 
+    public BulletController shotToFire;
+    [SerializeField] Transform shotPoint;
 
     Rigidbody2D rb2d;
 
@@ -50,6 +52,11 @@ public class PlayerController : MonoBehaviour
         else if(rb2d.velocity.x > 0)
         {
             transform.localScale = new Vector3(1, 1, 1);
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Instantiate(shotToFire, shotPoint.position, shotPoint.rotation). moveDirection = new Vector2(transform.localScale.x, 0f);
         }
     }
 
