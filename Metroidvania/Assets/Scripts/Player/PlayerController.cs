@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -15,7 +16,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpForce;
 
     public BulletController shotToFire;
-    [SerializeField] Transform shotPoint;
+    public Transform shotPoint;
+
+    public bool isShooting;
+    public bool isShootingOnGround;
+    private float shootingTimer;
+    [SerializeField] float shootDelayTime;
 
     Rigidbody2D rb2d;
 
@@ -39,10 +45,24 @@ public class PlayerController : MonoBehaviour
 
         isGrounded = Physics2D.OverlapCircle(groundPoint.position, .2f, groundCheckPoint);
 
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if (isGrounded)
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
-        }
+            if (Input.GetButtonDown("Jump"))
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
+            }
+            
+            if (Input.GetButtonDown("Fire1") && shootingTimer >= shootDelayTime && rb2d.velocity.x != 0 && !PlayerAnimations.instance.touchesWall)
+            {
+                isShooting = true;
+                Instantiate(shotToFire, shotPoint.position, shotPoint.rotation). moveDirection = new Vector2(transform.localScale.x, 0f);
+            }
+
+            if (Input.GetButtonDown("Fire1") && !isShootingOnGround && rb2d.velocity.x < 0.1f && rb2d.velocity.x > -0.1f && !PlayerAnimations.instance.touchesWall)
+            {
+                isShootingOnGround = true;
+            }
+        } 
 
         if(rb2d.velocity.x < 0)
         {
@@ -54,13 +74,22 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (isShooting)
         {
-            Instantiate(shotToFire, shotPoint.position, shotPoint.rotation). moveDirection = new Vector2(transform.localScale.x, 0f);
+            shootingTimer -= Time.deltaTime;
+        }
+
+        if (shootingTimer <= 0)
+        {
+            isShooting = false;
+            shootingTimer = shootDelayTime;
         }
     }
 
-    
+    public void ShootIdle()
+    {
+        Instantiate(shotToFire, shotPoint.position, shotPoint.rotation). moveDirection = new Vector2(transform.localScale.x, 0f);
+    }
         
     
 }

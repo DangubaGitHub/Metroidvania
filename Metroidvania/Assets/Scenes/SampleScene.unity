@@ -53355,6 +53355,7 @@ GameObject:
   - component: {fileID: 1517363380}
   - component: {fileID: 1517363379}
   - component: {fileID: 1517363381}
+  - component: {fileID: 1517363382}
   m_Layer: 8
   m_Name: Standing
   m_TagString: Untagged
@@ -53374,7 +53375,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1602527824}
   m_Father: {fileID: 1847112785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1517363379
@@ -53485,6 +53487,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1517363382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517363377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6567ebe9b21614c65bf2586bc1a01c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1602527823
 GameObject:
   m_ObjectHideFlags: 0
@@ -53509,12 +53523,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1602527823}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.02, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.03, y: 0.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1847112785}
+  m_Father: {fileID: 1517363378}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1847112784
 GameObject:
@@ -53551,7 +53565,6 @@ Transform:
   - {fileID: 1517363378}
   - {fileID: 1375713561}
   - {fileID: 1895427607}
-  - {fileID: 1602527824}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1847112786
@@ -53575,6 +53588,9 @@ MonoBehaviour:
   jumpForce: 25
   shotToFire: {fileID: 2206220748060182340, guid: 3dd6a039db4c74728b13e1934455c0f2, type: 3}
   shotPoint: {fileID: 1602527824}
+  isShooting: 0
+  isShootingOnGround: 0
+  shootDelayTime: 0.7
 --- !u!50 &1847112787
 Rigidbody2D:
   serializedVersion: 4

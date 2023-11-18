@@ -9,6 +9,7 @@ public class PlayerAnimations : MonoBehaviour
     const string P_Jump = "Player_Jump";
     const string P_Run = "Player_Run";
     const string P_Fall = "Player_Fall";
+    const string P_Shoot = "Player_Shoot";
 
     string currentState;
 
@@ -38,9 +39,14 @@ public class PlayerAnimations : MonoBehaviour
     {
         if(PlayerController.instance.isGrounded)
         {
-            if(rb2d.velocity.x < 0.1f && rb2d.velocity.x > -0.1f || touchesWall == true)
+            if(rb2d.velocity.x < 0.1f && rb2d.velocity.x > -0.1f && !PlayerController.instance.isShootingOnGround || touchesWall == true)
             {
                 ChangeAnimationState(P_IDLE);
+            }
+            
+            else if (rb2d.velocity.x < 0.1f && rb2d.velocity.x > -0.1f && PlayerController.instance.isShootingOnGround)
+            {
+                ChangeAnimationState(P_Shoot);
             }
 
             else
